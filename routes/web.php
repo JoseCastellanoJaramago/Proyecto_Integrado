@@ -26,10 +26,6 @@ Route::get('/usuarios/{user}', [UserController::class, 'show'])
     ->where('user', '[0-9]+')
     ->name('users.show');
 
-Route::get('/usuarios/entrenadores', [UserController::class, 'trainer'])
-    ->where('user', '[0-9]+')
-    ->name('users.trainer');
-
 Route::get('/logueo', [UserController::class, 'logueo'])
     ->name('logueo');
 
@@ -51,3 +47,23 @@ Route::delete('/usuarios/{user}', [UserController::class, 'destroy'])
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin', [UserController::class, 'admin'])
+    ->name('admin.home');
+
+Route::get('/usuarios/entrenadores', [UserController::class, 'trainer'])
+    ->where('user', '[0-9]+')
+    ->name('trainer.index');
+
+Route::delete('/entrenadores/{user}', [UserController::class, 'destroyEntrenador'])
+    ->name('trainer.destroy');
+
+Route::get('/entrenadores/{user}/editar', [UserController::class, 'editEntrenador'])
+    ->name('trainer.edit');
+
+Route::get('/entrenadores/{user}', [UserController::class, 'showEntrenador'])
+    ->where('user', '[0-9]+')
+    ->name('trainer.show');
+
+Route::get('/entrenadores/trainings', [UserController::class, 'showTrainings'])
+    ->name('trainer.trainings');

@@ -33,15 +33,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active" style="margin-right: 10px">
-                    <a class="btn btn-primary" href="{{ url('/usuarios') }}" >Usuarios</a>
-                </li>
-                <li style="margin-right: 10px">
-                    <a class="btn btn-primary" href="{{ route('users.trainer') }}">Entrenadores</a>
-                </li>
-                <li style="margin-right: 10px">
-                    <a class="btn btn-primary" href="{{ url('/usuarios') }}">Admin</a>
-                </li>
+
             </ul>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
@@ -59,15 +51,30 @@
                     @endif
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
+                    @can('users.index')
+                    <li class="nav-item active" style="margin-right: 10px">
+                        <a class="btn btn-primary" href="{{ url('/usuarios') }}" >Usuarios</a>
+                    </li>
+                    @endcan
+                    @can('trainer.index')
+                    <li style="margin-right: 10px">
+                        <a class="btn btn-primary" href="{{ route('trainer.trainings') }}">Entrenadores</a>
+                    </li>
+                    @endcan
+                    @can('admin.home')
+                    <li style="margin-right: 10px">
+                        <a class="btn btn-primary" href="{{ url('/admin') }}">Admin</a>
+                    </li>
+                    @endcan
+                    <a class="nav-link" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
                     </li>
                 @endguest
             </ul>
@@ -89,7 +96,7 @@
 
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Esta es la página de SafaGym.</span>
+        <span class="text-muted">SafaGym - Calle Fresa Nº 1 Local. Sevilla. 40001 - info@safagym.es</span>
     </div>
 </footer>
 

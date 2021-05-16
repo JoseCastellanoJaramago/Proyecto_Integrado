@@ -21,8 +21,12 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\User::factory(10)->create();
         // Aqui se llaman a los seeder que se hayan creado
+        $this->call(RoleSeeder::class);
         $this->call(ProfessionSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ClaseSeeder::class);
+
+
     }
 
     protected function truncateTables(array $tables)
