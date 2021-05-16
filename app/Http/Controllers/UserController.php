@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profession;
 use App\Models\User;
+use App\Models\Clase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,24 @@ class UserController extends Controller
 
         $title = 'Listado de empleados';
 
-        return view('users.trainer', compact('title', 'users', 'professions'));
+        return view('trainer.index', compact('title', 'users', 'professions'));
+    }
+
+    public function clases(){
+        $clases = Clase::all();
+        $professions = Profession::all();
+        $users = User::all();
+
+        $title = 'Actividades & Horarios';
+
+        return view('clases.index', compact('title', 'clases', 'users', 'professions'));
+    }
+
+    public function showFitness()
+    {
+        $title = 'Fitness';
+
+        return view('clases.fitness', compact('title'));
     }
 
     public function show(User $user) //$id
@@ -48,9 +66,16 @@ class UserController extends Controller
 
         return view('users.show', compact('user'));
     }
+    public function showEntrenador(User $user) //$id
+    {
+        //$user = User::findOrFail($user); //$id
+
+        return view('trainer.show', compact('user'));
+    }
 
     public function create(){
-        return view('users.create');
+        $professions = Profession::all();
+        return view('users.create', compact('professions'));
     }
 
     public function store(){
@@ -59,22 +84,40 @@ class UserController extends Controller
         $data = request()->validate([ //validate devuelve los campos que se le incluyan --aunque no tengan ninguna regla--
             'name' => 'required',
             'email' => ['required', 'email', 'unique:users,email'], //Otra forma de hacerlo: 'required|email', 'unique:users,email'->tabla,nombrecampotabla
-            'password' => 'required'
+            'password' => 'required',
+            'is_empleado' => 'nullable',
+            'profession_id' => 'nullable'
         ], [
             'name.required' => 'El campo nombre es obligatorio'
         ]);
 
-        User::create([
-            'name' => $data['name'], //name tiene que coincidir con el name del label de create.blade.php
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        $profession_id = Profession::find($data['profession_id']);
+        if ($profession_id != null){
+            $profession_id->users()->create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'is_empleado' => 1,
+            ]);
+        } else {
+            User::create([
+                'name' => $data['name'], //name tiene que coincidir con el name del label de create.blade.php
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'is_empleado' => 0,
+                'profession_id' => $data['profession_id'],
+            ]);
+        }
 
         return redirect()->route('users.index');
     }
 
     public function edit(User $user){
         return view('users.edit', ['user' => $user]);
+    }
+
+    public function editEntrenador(User $user){
+        return view('trainer.edit', ['user' => $user]);
     }
 
     public function update(User $user){
@@ -101,5 +144,18 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index');
+    }
+
+    public function destroyEntrenador(User $user){
+
+        $user->delete();
+
+        return redirect()->route('trainer.index');
+    }
+    public function admin(User $user){
+
+        $user = DB::table('users')->where('is_admin', '1');
+
+        return view('admin.home');
     }
 }

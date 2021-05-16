@@ -27,16 +27,16 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 @foreach($professions as $profession)
-                                    @if($profession->id === $user->id)
+                                    @if($profession->id === $user->profession_id)
                                         <td>{{ $profession->title }}</td>
                                     @endif
                                 @endforeach
                                 <td>
-                                    <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                    <form action="{{ route('trainer.destroy', $user) }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <a href="{{ route('users.trainer', $user) }}" class="btn btn-link"><span class="oi oi-eye"></span></a>
-                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
+                                        <a href="{{ route('trainer.show', $user) }}" class="btn btn-link"><span class="oi oi-eye"></span></a>
+                                        <a href="{{ route('trainer.edit', $user) }}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
                                         <button type="submit" class="btn btn-link"><span class="oi oi-trash"></span></button>
                                     </form>
                                 </td>

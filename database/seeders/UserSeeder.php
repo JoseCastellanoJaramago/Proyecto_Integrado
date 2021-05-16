@@ -16,52 +16,47 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //$professions = DB::select('SELECT id FROM professions WHERE title = ? LIMIT 0,1', ['Desarrollador back-end']);
-
         $professionId = Profession::where('title')->value('id'); // se puede sustituir por ->first()
 
-        //dd($professionId);
-
-        User::factory()->create([
+        $user1 = User::create([
             'name' => 'Eva Marchena',
             'email' => 'emarchenamejias@safareyes.es',
             'password' => bcrypt('Laravel'), // bcrypt para encriptar la password
-            'profession_id' => $professionId,
+            'profession_id' => 1,
             'is_admin' => true,
             'is_empleado' => false
         ]);
 
-        User::factory()->create([
+        $user2 = User::create([
             'name' => 'José Castellano',
             'email' => 'jcastellanojaramago@safareyes.es',
             'password' => bcrypt('Laravel'), // bcrypt para encriptar la password
-            'profession_id' => $professionId,
+            'profession_id' => 2,
             'is_admin' => false,
             'is_empleado' => true
         ]);
 
-        User::factory(5)->create([
-            'profession_id' => $professionId,
+        $user1->assignRole('Admin');
+        $user2->assignRole('Entrenador');
+
+        $professors = User::factory(7)->create([
+            'profession_id' => rand(1,8),
+            'password' => bcrypt('Laravel'),
             'is_admin' => false,
             'is_empleado' => true
         ]);
+        foreach($professors as $professor){
+            $professor->assignRole('Entrenador');
+        }
 
-        User::factory(10)->create([
+        $users = User::factory(10)->create([
+            'password' => bcrypt('Laravel'),
             'profession_id' => null,
         ]);
 
-//        User::create([
-//            'name' => 'Another User',
-//            'email' => 'another@user.com',
-//            'password' => bcrypt('Laravel'), // bcrypt para encriptar la password
-//            'profession_id' => $professionId
-//        ]);
-//
-//        User::create([
-//            'name' => 'Another User',
-//            'email' => 'another2@user.com',
-//            'password' => bcrypt('Laravel'), // bcrypt para encriptar la password
-//            'profession_id' => null
-//        ]);
+        foreach($users as $user){
+            $user->assignRole('Usuario');
+        }
+
     }
 }
