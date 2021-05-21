@@ -44,6 +44,57 @@ class UserController extends Controller
         return view('trainer.index', compact('title', 'users', 'professions'));
     }
 
+    public function clases(){
+        $clases = Clase::all();
+        $professions = Profession::all();
+        $users = User::all();
+
+        $title = 'Actividades & Horarios';
+
+        return view('clases.index', compact('title', 'clases', 'users', 'professions'));
+    }
+
+    public function showFitness(){
+        $title = 'Fitness';
+        return view('clases.Fitness', compact('title'));
+    }
+
+    public function showAgua(){
+        $title = 'Agua';
+        return view('clases.Agua', compact('title'));
+    }
+
+    public function showAerobic(){
+        $title = 'Aerobic';
+        return view('clases.Aerobic', compact('title'));
+    }
+
+    public function showBodycombat(){
+        $title = 'Body Combat';
+        return view('clases.Body Combat', compact('title'));
+    }
+
+    public function showPilates(){
+        $title = 'Pilates';
+        return view('clases.Pilates', compact('title'));
+    }
+
+    public function showZumba(){
+        $title = 'Zumba';
+        return view('clases.Zumba', compact('title'));
+    }
+
+    public function showPadel(){
+        $title = 'Pádel';
+        return view('clases.Pádel', compact('title'));
+    }
+
+    public function showFisioterapia(){
+        $title = 'Fisioterapia';
+        return view('clases.Fisioterapia', compact('title'));
+    }
+
+
     public function show(User $user) //$id
     {
         //$user = User::findOrFail($user); //$id

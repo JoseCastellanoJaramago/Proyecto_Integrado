@@ -26,7 +26,9 @@
 {{--                @if($clase->is_empleado == 1)--}}
                     <tr>
                         <th scope="row">{{ $clase->id }}</th>
-                        <td><a href="fitness.blade.php">{{ $clase->nombre }} </a></td>
+{{--                        @if($clase->nombre ===)--}}
+                        <td><a href="{{ route('clases.'.$clase->nombre ) }}">{{ $clase->nombre }}</a></td>
+{{--                        @endif--}}
                         <td>{{ $clase->horario }}</td>
                         <td>{{ $clase->dia }}</td>
                         <td>{{ $clase->plazas }}</td>

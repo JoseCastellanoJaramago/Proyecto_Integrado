@@ -53,12 +53,12 @@
                     <li class="nav-item">
                     @can('users.index')
                     <li class="nav-item active" style="margin-right: 10px">
-                        <a class="btn btn-primary" href="{{ url('/usuarios') }}" >Usuarios</a>
+                        <a class="btn btn-primary" href="{{ route('clases.index') }}" >Horarios</a>
                     </li>
                     @endcan
                     @can('trainer.index')
                     <li style="margin-right: 10px">
-                        <a class="btn btn-primary" href="{{ route('trainer.trainings') }}">Entrenadores</a>
+                        <a class="btn btn-primary" href="{{ route('trainer.trainings') }}">Ver perfil</a>
                     </li>
                     @endcan
                     @can('admin.home')

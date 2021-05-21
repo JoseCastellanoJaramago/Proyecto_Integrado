@@ -16,7 +16,7 @@ class ClaseSeeder extends Seeder
     {
         Clase::create([
             'nombre' => 'Fitness',
-            'horario' => '8:00-9:00',
+            'horario' => '08:00-09:00',
             'dia' => 'Lunes',
             'plazas' => '15',
             'profession_id' => 1,
@@ -52,7 +52,7 @@ class ClaseSeeder extends Seeder
 
         Clase::create([
             'nombre' => 'Pilates',
-            'horario' => '9:00-12:00',
+            'horario' => '09:00-12:00',
             'dia' => 'Jueves',
             'plazas' => '15',
             'profession_id' => 5,

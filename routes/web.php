@@ -67,3 +67,31 @@ Route::get('/entrenadores/{user}', [UserController::class, 'showEntrenador'])
 
 Route::get('/entrenadores/trainings', [UserController::class, 'showTrainings'])
     ->name('trainer.trainings');
+
+Route::get('/usuarios/clases', [UserController::class, 'clases'])
+    ->where('user', '[0-9]+')
+    ->name('clases.index');
+
+Route::get('/usuarios/clases/fitness', [UserController::class, 'showFitness'])
+    ->name('clases.Fitness');
+
+Route::get('/usuarios/clases/agua', [UserController::class, 'showAgua'])
+    ->name('clases.Agua');
+
+Route::get('/usuarios/clases/aerobic', [UserController::class, 'showAerobic'])
+    ->name('clases.Aerobic');
+
+Route::get('/usuarios/clases/bodycombat', [UserController::class, 'showBodycombat'])
+    ->name('clases.Body Combat');
+
+Route::get('/usuarios/clases/pilates', [UserController::class, 'showPilates'])
+    ->name('clases.Pilates');
+
+Route::get('/usuarios/clases/zumba', [UserController::class, 'showZumba'])
+    ->name('clases.Zumba');
+
+Route::get('/usuarios/clases/padel', [UserController::class, 'showPadel'])
+    ->name('clases.Pádel');
+
+Route::get('/usuarios/clases/fisioterapia', [UserController::class, 'showFisioterapia'])
+    ->name('clases.Fisioterapia');
