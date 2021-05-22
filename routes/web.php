@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('/usuarios', [UserController::class, 'index'])
     ->name('users.index');
 
+Route::get('/actividades', [UserController::class, 'actividades'])
+    ->name('actividades');
+
 Route::get('/usuarios/{user}', [UserController::class, 'show'])
     ->where('user', '[0-9]+')
     ->name('users.show');
@@ -95,3 +98,9 @@ Route::get('/usuarios/clases/padel', [UserController::class, 'showPadel'])
 
 Route::get('/usuarios/clases/fisioterapia', [UserController::class, 'showFisioterapia'])
     ->name('clases.Fisioterapia');
+
+Route::get('/contacto', [UserController::class, 'contacto'])
+    ->name('contacto');
+
+Route::get('/usuarios/perfil', [UserController::class, 'showPerfil'])
+    ->name('users.perfil');

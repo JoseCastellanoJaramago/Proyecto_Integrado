@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->belongsTo(Profession::class);
     }
 
+    public function ejercicios(){ // Un usuario puede tener una sola profesión - profession_id
+        return $this->belongsTo(Ejercicio::class);
+    }
+
     public function isAdmin(){
         return $this->is_admin;
     }

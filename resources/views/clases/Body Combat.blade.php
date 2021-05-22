@@ -19,5 +19,10 @@
     A continuación, un segundo <b>bloque de ejercicios de velocidad, energía y resistencia</b>, combinando tiempos de descanso en cada serie. Por último, un tercer
     <b>bloque de ejercicios de fuerza</b> que concluyen con una serie de estiramientos.<br>
 
-    <a href="{{ route('clases.index') }}" class="btn btn-link">Volver</a>
+    @guest
+        <a href="{{ route('actividades') }}" class="btn btn-link" id="content">Volver</a>
+    @endguest
+    @auth
+        <a href="{{ route('clases.index') }}" class="btn btn-link" id="volverUsers" >Volver</a>
+    @endauth
 @endsection

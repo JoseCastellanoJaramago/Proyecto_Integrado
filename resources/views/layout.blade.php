@@ -27,14 +27,12 @@
 <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <img class="nav-link" src="img/logo.jpg" >
         <a class="nav-link" href="{{ url('/') }}">SafaGym</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-
-            </ul>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
@@ -43,17 +41,19 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
-
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <li style="margin-right: 10px">
+                            <a class="btn btn-primary" href="{{ route('actividades') }}">Actividades</a>
                         </li>
-                    @endif
+                        <li style="margin-right: 10px">
+                            <a class="btn btn-primary" href="{{ route('contacto') }}">Contacto</a>
+                        </li>
+
                 @else
                     <li class="nav-item">
                     @can('users.index')
                     <li class="nav-item active" style="margin-right: 10px">
                         <a class="btn btn-primary" href="{{ route('clases.index') }}" >Horarios</a>
+                        <a class="btn btn-primary" href="{{ route('users.perfil') }}" >Ver perfil</a>
                     </li>
                     @endcan
                     @can('trainer.index')

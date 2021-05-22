@@ -22,7 +22,12 @@
     <br><br>La música y la motivación que José aporta a cada una de sus clases harán que sientas unas ganas increíbles de darlo todo, y el buen rollo está
     asegurado.</p>
 
-    <a href="{{ route('clases.index') }}" class="btn btn-link">Volver</a>
+    @guest
+        <a href="{{ route('actividades') }}" class="btn btn-link" id="content">Volver</a>
+    @endguest
+    @auth
+        <a href="{{ route('clases.index') }}" class="btn btn-link" id="volverUsers" >Volver</a>
+    @endauth
 
 @endsection
 

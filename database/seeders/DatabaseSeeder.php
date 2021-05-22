@@ -23,8 +23,10 @@ class DatabaseSeeder extends Seeder
         // Aqui se llaman a los seeder que se hayan creado
         $this->call(RoleSeeder::class);
         $this->call(ProfessionSeeder::class);
+        $this->call(EjercicioSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ClaseSeeder::class);
+
 
 
     }

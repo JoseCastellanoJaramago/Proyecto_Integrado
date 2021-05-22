@@ -16,5 +16,10 @@
 
     <br>Las clases tienen una duración de 45 minutos, comenzando y terminando en todas ellas con una serie de ejercicios de relajación.<br></p>
 
-    <a href="{{ route('clases.index') }}" class="btn btn-link">Volver</a>
+    @guest
+        <a href="{{ route('actividades') }}" class="btn btn-link" id="content">Volver</a>
+    @endguest
+    @auth
+        <a href="{{ route('clases.index') }}" class="btn btn-link" id="volverUsers" >Volver</a>
+    @endauth
 @endsection

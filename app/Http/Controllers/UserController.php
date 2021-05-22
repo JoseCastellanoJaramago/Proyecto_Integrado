@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class UserController extends Controller
 {
@@ -33,6 +34,10 @@ class UserController extends Controller
 
     public function logueo(){
         return view('logueo');
+    }
+
+    public function actividades(){
+        return view('actividades');
     }
 
     public function trainer(){
@@ -113,6 +118,12 @@ class UserController extends Controller
         $user = Auth::user();
         $clases = DB::table('clases')->select('nombre','horario','dia','plazas')->where('id','=',auth()->user()->id)->get()->first();
         return view('trainer.trainings', compact('user', 'clases'));
+    }
+
+    public function showPerfil()
+    {
+        $user = Auth::user();
+        return view('users.perfil', compact('user'));
     }
 
     public function create(){
@@ -199,5 +210,11 @@ class UserController extends Controller
         $user = DB::table('users')->where('is_admin', '1');
 
         return view('admin.home');
+    }
+
+    public function contacto(){
+
+        return view('contacto');
+
     }
 }

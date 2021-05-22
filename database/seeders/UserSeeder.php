@@ -52,6 +52,7 @@ class UserSeeder extends Seeder
         $users = User::factory(10)->create([
             'password' => bcrypt('Laravel'),
             'profession_id' => null,
+            'ejercicios_id' => rand(1,8)
         ]);
 
         foreach($users as $user){

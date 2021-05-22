@@ -20,5 +20,10 @@
     <br>Si hasta ahora no estabas seguro de animarte a convertir el pádel en parte de tu rutina, con estas razones ¡no tendrás excusas para no hacerlo!
     </p>
 
-    <a href="{{ route('clases.index') }}" class="btn btn-link">Volver</a>
+    @guest
+        <a href="{{ route('actividades') }}" class="btn btn-link" id="content">Volver</a>
+    @endguest
+    @auth
+        <a href="{{ route('clases.index') }}" class="btn btn-link" id="volverUsers" >Volver</a>
+    @endauth
 @endsection

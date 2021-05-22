@@ -19,5 +19,10 @@
     secuelas.
     </p>
 
-    <a href="{{ route('clases.index') }}" class="btn btn-link">Volver</a>
+    @guest
+        <a href="{{ route('actividades') }}" class="btn btn-link" id="content">Volver</a>
+    @endguest
+    @auth
+        <a href="{{ route('clases.index') }}" class="btn btn-link" id="volverUsers" >Volver</a>
+    @endauth
 @endsection
