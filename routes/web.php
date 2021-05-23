@@ -35,6 +35,9 @@ Route::get('/logueo', [UserController::class, 'logueo'])
 Route::get('/usuarios/nuevo', [UserController::class, 'create'])
     ->name('users.create');
 
+Route::get('/ejercicios/nuevo', [UserController::class, 'createEjercicios'])
+    ->name('ejercicios.create');
+
 Route::post('/usuarios', [UserController::class, 'store']);
 
 Route::get('/usuarios/{user}/editar', [UserController::class, 'edit'])
@@ -104,3 +107,29 @@ Route::get('/contacto', [UserController::class, 'contacto'])
 
 Route::get('/usuarios/perfil', [UserController::class, 'showPerfil'])
     ->name('users.perfil');
+
+Route::get('/ejercicios', [UserController::class, 'indexEjercicios'])
+    ->name('ejercicios.index');
+
+Route::get('/ejercicios/{ejercicio}', [UserController::class, 'showEjercicios'])
+    ->name('ejercicios.show');
+
+Route::get('/ejercicios/{ejercicio}/editar', [UserController::class, 'editEjercicios'])
+    ->name('ejercicios.edit');
+
+Route::put('ejercicios/{ejercicio}', [UserController::class, 'updateEjercicios']);
+
+Route::post('/ejercicios', [UserController::class, 'storeEjercicios']);
+
+Route::delete('/ejercicios/{ejercicio}', [UserController::class, 'destroyEjercicios'])
+    ->name('ejercicios.destroy');
+
+Route::get('/usuarios/perfil/tabla', [UserController::class, 'showTablaEj'])
+    ->name('users.tablaEj');
+
+Route::get('/alumnos', [UserController::class, 'showAlumnos'])
+    ->name('trainer.alumnos');
+
+Route::put('/alumnos/asignar', [UserController::class, 'asignarAlumnos'])
+    ->name('trainer.asignar');
+

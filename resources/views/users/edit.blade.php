@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', "Crear nuevo usuario")
+@section('title', "Editar usuario")
 
 @section('content')
     <div class="card">

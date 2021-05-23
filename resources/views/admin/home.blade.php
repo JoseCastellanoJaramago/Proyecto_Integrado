@@ -14,6 +14,9 @@
                 <li>
                     <a href="{{ route('trainer.index') }}" class="btn btn-link">Administrar entrenadores</a>
                 </li>
+                <li>
+                    <a href="{{ route('ejercicios.index') }}" class="btn btn-link">Administrar ejercicios</a>
+                </li>
             </ul>
         </div>
     </div>

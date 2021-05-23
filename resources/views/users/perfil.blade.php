@@ -10,5 +10,6 @@
             <p>Nombre del usuario: {{ auth()->user()->name }}</p>
             <p>Correo electrónico: {{ auth()->user()->email }}</p>
         </div>
+        <a class="btn btn-primary" href="{{ route('users.tablaEj') }}" >Ver tabla ejercicios</a>
     </div>
 @endsection

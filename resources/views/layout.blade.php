@@ -59,6 +59,8 @@
                     @can('trainer.index')
                     <li style="margin-right: 10px">
                         <a class="btn btn-primary" href="{{ route('trainer.trainings') }}">Ver perfil</a>
+                        <a class="btn btn-primary" href="{{ route('ejercicios.index') }}">Ejercicios</a>
+                        <a class="btn btn-primary" href="{{ route('trainer.alumnos') }}">Asignar Tabla</a>
                     </li>
                     @endcan
                     @can('admin.home')
