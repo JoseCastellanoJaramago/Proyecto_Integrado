@@ -23,12 +23,12 @@
 </head>
 
 <body>
-
 <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img class="nav-link" src="img/logo.jpg" >
-        <a class="nav-link" href="{{ url('/') }}">SafaGym</a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
+
+{{--        <a class="navbar-brand logo" href="#homepage"><img src="" alt="" /></a>--}}
+        <a class="nav-link" href="{{ url('/') }}"><b>SafaGym</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,37 +36,45 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
+                    <li style="margin-right: 10px">
+                        <a class="nav-link" href="{{ route('actividades') }}">Actividades</a>
+                    </li>
+                    <li style="margin-right: 10px">
+                        <a class="nav-link" href="{{ route('contacto') }}">Contacto</a>
+                    </li>
+                    <li style="margin-right: 10px">
+                        <a class="nav-link" href="{{ route('normasCovid') }}">Normas Covid</a>
+                    </li>
+
                     @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
-                        <li style="margin-right: 10px">
-                            <a class="btn btn-primary" href="{{ route('actividades') }}">Actividades</a>
-                        </li>
-                        <li style="margin-right: 10px">
-                            <a class="btn btn-primary" href="{{ route('contacto') }}">Contacto</a>
-                        </li>
+
+
 
                 @else
                     <li class="nav-item">
                     @can('users.index')
                     <li class="nav-item active" style="margin-right: 10px">
-                        <a class="btn btn-primary" href="{{ route('clases.index') }}" >Horarios</a>
-                        <a class="btn btn-primary" href="{{ route('users.perfil') }}" >Ver perfil</a>
+                        <a class="nav-link" href="{{ route('clases.horario') }}" >Horarios</a>
+                        <a class="nav-link" href="{{ route('users.perfil') }}" >Ver perfil</a>
                     </li>
                     @endcan
                     @can('trainer.index')
                     <li style="margin-right: 10px">
-                        <a class="btn btn-primary" href="{{ route('trainer.trainings') }}">Ver perfil</a>
+                        <a class="nav-link" href="{{ route('trainer.trainings') }}">Ver perfil</a>
+                        <a class="nav-link" href="{{ route('ejercicios.index') }}">Ejercicios</a>
+                        <a class="nav-link" href="{{ route('trainer.alumnos') }}">Asignar Tabla</a>
                     </li>
                     @endcan
                     @can('admin.home')
                     <li style="margin-right: 10px">
-                        <a class="btn btn-primary" href="{{ url('/admin') }}">Admin</a>
+                        <a class="nav-link" href="{{ url('/admin') }}">Admin</a>
                     </li>
                     @endcan
-                    <a class="nav-link" href="{{ route('logout') }}"
+                    <a class="nav-link" id= "idlogado" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
@@ -84,19 +92,19 @@
 
 <!-- Begin page content -->
 <main role="main" class="container">
-    <div class="row mt-3">
-        <div class="col-8">
+    <div class="row mt-4">
+        <div class="col-14">
             @yield('content')
         </div>
         <div class="col-4">
-            <p>&nbsp;</p>
+            <p></p>
         </div>
     </div>
 </main>
 
-<footer class="footer">
+<footer class="footer" >
     <div class="container">
-        <span class="text-muted">SafaGym - Calle Fresa Nº 1 Local. Sevilla. 40001 - info@safagym.es</span>
+        <span class="text-primary">SafaGym - Calle Fresa Nº 1 Local. Sevilla. 40001 - info@safagym.es</span>
     </div>
 </footer>
 

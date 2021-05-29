@@ -14,11 +14,11 @@ class CreateClasesTable extends Migration
     public function up()
     {
         Schema::create('clases', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('nombre', 50)->unique();
             $table->string('horario', 50);
             $table->string('dia', 50);
-            $table->string('plazas', 2);
+            $table->integer('plazas')->unsigned();
             $table->timestamps();
         });
     }

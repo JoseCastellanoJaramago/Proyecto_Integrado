@@ -35,6 +35,9 @@ Route::get('/logueo', [UserController::class, 'logueo'])
 Route::get('/usuarios/nuevo', [UserController::class, 'create'])
     ->name('users.create');
 
+Route::get('/ejercicios/nuevo', [UserController::class, 'createEjercicios'])
+    ->name('ejercicios.create');
+
 Route::post('/usuarios', [UserController::class, 'store']);
 
 Route::get('/usuarios/{user}/editar', [UserController::class, 'edit'])
@@ -71,6 +74,9 @@ Route::get('/entrenadores/{user}', [UserController::class, 'showEntrenador'])
 Route::get('/entrenadores/trainings', [UserController::class, 'showTrainings'])
     ->name('trainer.trainings');
 
+Route::get('/usuarios/horarios', [UserController::class, 'horariosClases'])
+    ->name('clases.horario');
+
 Route::get('/usuarios/clases', [UserController::class, 'clases'])
     ->where('user', '[0-9]+')
     ->name('clases.index');
@@ -102,5 +108,43 @@ Route::get('/usuarios/clases/fisioterapia', [UserController::class, 'showFisiote
 Route::get('/contacto', [UserController::class, 'contacto'])
     ->name('contacto');
 
+Route::get('/normasCovid', [UserController::class, 'normasCovid'])
+    ->name('normasCovid');
+
 Route::get('/usuarios/perfil', [UserController::class, 'showPerfil'])
     ->name('users.perfil');
+
+Route::get('/ejercicios', [UserController::class, 'indexEjercicios'])
+    ->name('ejercicios.index');
+
+Route::get('/ejercicios/{ejercicio}', [UserController::class, 'showEjercicios'])
+    ->name('ejercicios.show');
+
+Route::get('/ejercicios/{ejercicio}/editar', [UserController::class, 'editEjercicios'])
+    ->name('ejercicios.edit');
+
+Route::put('ejercicios/{ejercicio}', [UserController::class, 'updateEjercicios']);
+
+Route::post('/ejercicios', [UserController::class, 'storeEjercicios']);
+
+Route::delete('/ejercicios/{ejercicio}', [UserController::class, 'destroyEjercicios'])
+    ->name('ejercicios.destroy');
+
+Route::get('/usuarios/perfil/tabla', [UserController::class, 'showTablaEj'])
+    ->name('users.tablaEj');
+
+Route::get('/alumnos', [UserController::class, 'showAlumnos'])
+    ->name('trainer.alumnos');
+
+Route::put('/alumnos/asignar', [UserController::class, 'asignarAlumnos'])
+    ->name('trainer.asignar');
+
+Route::put('/clases/asignar', [UserController::class, 'asignarClases'])
+    ->name('clases.asignar');
+
+Route::put('/clases/anular', [UserController::class, 'anularReserva'])
+    ->name('clases.anular');
+
+Route::get('/clases/anularVista', [UserController::class, 'anular'])
+    ->name('clases.anularVista');
+
