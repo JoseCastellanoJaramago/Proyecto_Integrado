@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Alumnos')
+@section('title', 'Asignar tablas')
 
 @section('content')
 <div class="navbar-brand d-none d-lg-inline-block" id="centro">
@@ -8,8 +8,9 @@
         <div class="row">
         @csrf
         @method('PUT')
-        <label>Alumno: </label>
-        <select name="users_name" id="users_name">
+        <h6 class="card bg-info text-white">Alumno: </h6>
+        <select name="users_name" id="users_name" class="btn btn-light">
+            <!-- Foreach para rellenar el select de usuarios -->
             @foreach($users as $user)
                 @if($user->profession_id == null)
                     <option value="{{ $user['id'] }}">{{ $user['id'] }} - {{ $user['name'] }}</option>
@@ -19,16 +20,17 @@
         </div>
         <br>
         <div class="row">
-        <label>Tabla: </label>
-        <select name="ejercicios_tipo" id="ejercicios_tipo">
-            @foreach($ejercicios as $ejercicio)
-                <option value="{{ $ejercicio['id'] }}">{{ $ejercicio['tipo'] }}</option>
-            @endforeach
-        </select>
+            <h6 class="card bg-info text-white">Tabla: </h6>
+            <select name="ejercicios_tipo" id="ejercicios_tipo" class="btn btn-light">
+                <!-- Foreach para rellenar el select de ejercicios -->
+                @foreach($ejercicios as $ejercicio)
+                    <option value="{{ $ejercicio['id'] }}">{{ $ejercicio['tipo'] }}</option>
+                @endforeach
+            </select>
         </div>
         <br><br>
         <div class="row">
-        <input class="btn btn-primary" type="submit" value="Asignar tabla" />
+            <input class="btn btn-secondary text-white" type="submit" value="Asignar tabla" />
         </div>
     </form>
 </div>

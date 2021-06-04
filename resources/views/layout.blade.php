@@ -45,6 +45,9 @@
                     <li style="margin-right: 10px">
                         <a class="nav-link" href="{{ route('normasCovid') }}">Normas Covid</a>
                     </li>
+                    <li style="margin-right: 10px">
+                        <a class="nav-link" href="{{ route('precios') }}">Precios</a>
+                    </li>
 
                     @if (Route::has('login'))
                         <li class="nav-item">
@@ -58,8 +61,9 @@
                     <li class="nav-item">
                     @can('users.index')
                     <li class="nav-item active" style="margin-right: 10px">
-                        <a class="nav-link" href="{{ route('clases.horario') }}" >Horarios</a>
                         <a class="nav-link" href="{{ route('users.perfil') }}" >Ver perfil</a>
+                        <a class="nav-link" href="{{ route('clases.horario') }}" >Horarios</a>
+                        <a class="nav-link" href="{{ route('normasCovid') }}">Normas Covid</a>
                     </li>
                     @endcan
                     @can('trainer.index')
@@ -67,6 +71,7 @@
                         <a class="nav-link" href="{{ route('trainer.trainings') }}">Ver perfil</a>
                         <a class="nav-link" href="{{ route('ejercicios.index') }}">Ejercicios</a>
                         <a class="nav-link" href="{{ route('trainer.alumnos') }}">Asignar Tabla</a>
+                        <a class="nav-link" href="{{ route('normasCovid') }}">Normas Covid</a>
                     </li>
                     @endcan
                     @can('admin.home')
@@ -102,9 +107,9 @@
     </div>
 </main>
 
-<footer class="footer" >
-    <div class="container">
-        <span class="text-primary">SafaGym - Calle Fresa Nº 1 Local. Sevilla. 40001 - info@safagym.es</span>
+<footer class="footer bg-warning" >
+    <div class="container ">
+        <span class="text-white">SafaGym - Calle Fresa Nº 1 Local. Sevilla. 40001 - info@safagym.es</span>
     </div>
 </footer>
 

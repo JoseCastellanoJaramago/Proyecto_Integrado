@@ -25,7 +25,7 @@ class UserModuleTest extends TestCase
 
         $this->get('/usuarios')
             ->assertStatus(200)
-            ->assertSee('Listado de usuarios')
+            ->assertSee('LISTADO DE USUARIOS')
             ->assertSee('Eva')
             ->assertSee('Pepe');
     }
@@ -37,7 +37,7 @@ class UserModuleTest extends TestCase
 
         $this->get('/usuarios')
             ->assertStatus(200)
-            ->assertSee('Listado de usuarios')
+            ->assertSee('LISTADO DE USUARIOS')
             ->assertSee('No hay usuarios registrados');
     }
 
@@ -45,12 +45,12 @@ class UserModuleTest extends TestCase
     function it_displays_the_users_details()
     {
         $user = User::factory()->create([
-            'name' => 'Sara Repeto'
+            'name' => 'José Castellano'
         ]);
 
         $this->get('/usuarios/'.$user->id) // usuarios/5
             ->assertStatus(200)
-            ->assertSee('Sara Repeto');
+            ->assertSee('José Castellano');
     }
 
     /** @test*/
@@ -70,40 +70,18 @@ class UserModuleTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_a_new_user()
-    {
-        $this->withoutExceptionHandling();
-
-        $this->post('/usuarios/', [
-            'name' => 'Eva',
-            'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
-        ])->assertRedirect('usuarios');
-
-        $this->assertCredentials([
-            'name' => 'Eva',
-            'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
-        ]);
-    }
-
-    /** @test */
     public function the_name_is_required()
     {
         $this->from('usuarios/nuevo') //nos posicionamos en la url
             ->post('/usuarios/', [ // enviamos una petición de tipo post a la url usuarios
             'name' => '',
             'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
+            'password' => 'Laravel'
             ])
             ->assertRedirect('usuarios/nuevo') // al dejar name vacío esperamos ser redirigidos a la url usuarios/nuevo
             ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']); //Espera que exista un campo nombre en el listado de errores en la excepción
 
         $this->assertEquals(0, User::count()); // 0 es valor esperado, valor actual count
-
-//        $this->assertDatabaseMissing('users', [ //Espero no encontrar en la BD un usuario con estos datos
-//            'email' => 'emarchenamejias@safareyes.es'
-//        ]);
     }
 
     /** @test */
@@ -113,7 +91,7 @@ class UserModuleTest extends TestCase
         ->post('/usuarios/', [
             'name' => 'Eva',
             'email' => '',
-            'password' => '123456'
+            'password' => 'Laravel'
         ])
             ->assertRedirect('usuarios/nuevo')
             ->assertSessionHasErrors(['email']);
@@ -128,7 +106,7 @@ class UserModuleTest extends TestCase
             ->post('/usuarios/', [
                 'name' => 'Eva',
                 'email' => 'correo-no-valido',
-                'password' => '123456'
+                'password' => 'Laravel'
             ])
             ->assertRedirect('usuarios/nuevo')
             ->assertSessionHasErrors(['email']);
@@ -147,7 +125,7 @@ class UserModuleTest extends TestCase
             ->post('/usuarios/', [
                 'name' => 'Eva',
                 'email' => 'emarchenamejias@safareyes.es',
-                'password' => '123456'
+                'password' => 'Laravel'
             ])
             ->assertRedirect('usuarios/nuevo')
             ->assertSessionHasErrors(['email']);
@@ -195,13 +173,13 @@ class UserModuleTest extends TestCase
         $this->put("/usuarios/{$user->id}", [
             'name' => 'Eva',
             'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
+            'password' => 'Laravel'
         ])->assertRedirect("usuarios/{$user->id}");
 
         $this->assertCredentials([
             'name' => 'Eva',
             'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
+            'password' => 'Laravel'
         ]);
     }
 
@@ -214,7 +192,7 @@ class UserModuleTest extends TestCase
             ->put("/usuarios/{$user->id}", [
             'name' => '',
             'email' => 'emarchenamejias@safareyes.es',
-            'password' => '123456'
+            'password' => 'Laravel'
         ])
             ->assertRedirect("/usuarios/{$user->id}/editar")
             ->assertSessionHasErrors(['name']);
@@ -231,7 +209,7 @@ class UserModuleTest extends TestCase
             ->put("/usuarios/{$user->id}", [
                 'name' => 'Eva',
                 'email' => 'correo-no-valido',
-                'password' => '123456'
+                'password' => 'Laravel'
             ])
             ->assertRedirect("/usuarios/{$user->id}/editar")
             ->assertSessionHasErrors(['email']);
@@ -256,7 +234,7 @@ class UserModuleTest extends TestCase
             ->put("/usuarios/{$user->id}", [
                 'name' => 'Eva',
                 'email' => 'existing-email@example.com',
-                'password' => '123456'
+                'password' => 'Laravel'
             ])
             ->assertRedirect("usuarios/$user->id/editar")
             ->assertSessionHasErrors(['email']);
@@ -274,7 +252,7 @@ class UserModuleTest extends TestCase
             ->put("/usuarios/{$user->id}", [
                 'name' => 'Eva Marchena',
                 'email' => 'emarchenamejias@safareyes.es',
-                'password' => '12345678'
+                'password' => 'Laravel'
             ])
             ->assertRedirect("usuarios/{$user->id}"); //users.show
 
@@ -321,7 +299,5 @@ class UserModuleTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'id' => $user->id
         ]);
-
-        //$this->assertSame(0, User::count());
     }
 }

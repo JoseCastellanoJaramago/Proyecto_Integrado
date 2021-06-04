@@ -9,13 +9,19 @@
                 @csrf
                 @method('PUT')
                 <label>Elige clase a reservar: </label>
+
                 <select name="clases_name" id="clases_name">
                     @foreach($clases as $clase)
-                                <option value="{{ $clase['id'] }}">{{ $clase['id'] }} - {{ $clase['nombre'] }} - {{ $clase['horario'] }}</option>
+                        @if($clase->plazas == 0)
+                            <option value="{{ $clase['id'] }}" disabled="disabled">{{ $clase['id'] }} - {{ $clase['nombre'] }} - {{ $clase['dia'] }} - {{ $clase['horario'] }} ----- {{ $clase['plazas'] }} plazas disponibles</option>
+                        @else
+                            <option value="{{ $clase['id'] }}" >{{ $clase['id'] }} - {{ $clase['nombre'] }} ----- {{ $clase['dia'] }} - {{ $clase['horario'] }} ----- {{ $clase['plazas'] }} plazas disponibles</option>
+                        @endif
                     @endforeach
                 </select>
                 </br>
                 <input class="btn btn-primary" type="submit" value="Reservar clase" />
+
             </div>
             <br>
         </form>

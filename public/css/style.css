@@ -7,6 +7,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: #ecf2f9;
 }
 .footer {
     position: absolute;
@@ -25,6 +26,10 @@ body {
 
 body > .container {
     padding: 60px 15px 0;
+}
+
+main > .container {
+    background-color: #ecf2f9;
 }
 
 .footer > .container {
@@ -60,5 +65,9 @@ nav .nav-link {
     width: 100%;
     display: block;
     margin-left: auto;
+}
+
+#actividades{
+    padding-left: 15px;
 }
 

@@ -14,139 +14,29 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class UserController extends Controller
 {
+
+    // Función para ver el listado de usuarios
     public function index(){
 
         $users = User::all();
 
-        $title = 'Listado de usuarios';
+        $title = 'LISTADO DE USUARIOS';
 
         return view('users.index', compact('title', 'users'));
     }
 
-    public function indexEjercicios(){
-
-        $ejercicios = Ejercicio::all();
-
-        $title = 'Listado de tablas de ejercicios';
-
-        return view('ejercicios.index', compact('title', 'ejercicios'));
-    }
-
-    public function logueo(){
-        return view('logueo');
-    }
-
+    // Función para ver la vista de actividades
     public function actividades(){
         return view('actividades');
     }
 
-    public function trainer(){
-        $users = User::all();
-        $professions = Profession::all();
-
-        $title = 'Listado de empleados';
-
-        return view('trainer.index', compact('title', 'users', 'professions'));
-    }
-
-    public function horariosClases(){
-
-        return view('clases.horario');
-    }
-
-    public function clases(){
-        $clases = Clase::all();
-        $users = Auth::user();
-
-        $title = 'Reservas';
-
-        return view('clases.index', compact('title', 'clases', 'users'));
-    }
-
-    public function asignarClases(Request $request){
-
-        $id_clase = $request->input('clases_name');
-        $users = Auth::user();
-
-        DB::table('users')
-            ->where('id',auth()->user()->id)
-            ->update([ 'clases_id' => $id_clase]);
-
-        return redirect()->route('clases.horario');
-    }
-
-    public function anular(){
-        $user = Auth::user();
-        $clase = DB::table('clases')->select('*')->where('id','=',auth()->user()->clases_id)->get()->first();
-
-        return view('users.anularVista', compact('user', 'clase'));
-    }
-
-    public function anularReserva(){
-
-        DB::table('users')
-            ->where('id',auth()->user()->id)
-            ->update([ 'clases_id' => null]);
-
-        return redirect()->route('clases.horario');
-    }
-
-    public function showFitness(){
-        $title = 'Fitness';
-        return view('clases.Fitness', compact('title'));
-    }
-
-    public function showAgua(){
-        $title = 'Agua';
-        return view('clases.Agua', compact('title'));
-    }
-
-    public function showAerobic(){
-        $title = 'Aerobic';
-        return view('clases.Aerobic', compact('title'));
-    }
-
-    public function showBodycombat(){
-        $title = 'Body Combat';
-        return view('clases.Body Combat', compact('title'));
-    }
-
-    public function showPilates(){
-        $title = 'Pilates';
-        return view('clases.Pilates', compact('title'));
-    }
-
-    public function showZumba(){
-        $title = 'Zumba';
-        return view('clases.Zumba', compact('title'));
-    }
-
-    public function showPadel(){
-        $title = 'Pádel';
-        return view('clases.Pádel', compact('title'));
-    }
-
-    public function showFisioterapia(){
-        $title = 'Fisioterapia';
-        return view('clases.Fisioterapia', compact('title'));
-    }
-
+    // Función para ver la vista del usuario elegido en la tabla de usuarios
     public function show(User $user) //$id
     {
         return view('users.show', compact('user'));
     }
-    public function showEntrenador(User $user) //$id
-    {
-        return view('trainer.show', compact('user'));
-    }
 
-    public function showTrainings()
-    {
-        $user = Auth::user();
-        $clases = DB::table('clases')->select('nombre','horario','dia','plazas')->where('id','=',auth()->user()->id)->get()->first();
-        return view('trainer.trainings', compact('user', 'clases'));
-    }
-
+    // Función para mostrar el perfil del usuario logeado
     public function showPerfil()
     {
         $user = Auth::user();
@@ -155,6 +45,7 @@ class UserController extends Controller
         return view('users.perfil', compact('user', 'clase'));
     }
 
+    // Función para mostrar la tabla de ejercicios
     public function showTablaEj()
     {
         $user = Auth::user();
@@ -162,21 +53,13 @@ class UserController extends Controller
         return view('users.tablaEj', compact('user', 'ejercicio'));
     }
 
-    public function showEjercicios(Ejercicio $ejercicio)
-    {
-        return view('ejercicios.show', compact('ejercicio'));
-    }
-
-
+    // Función para la vista de creación de un usuario
     public function create(){
         $professions = Profession::all();
         return view('users.create', compact('professions'));
     }
 
-    public function createEjercicios(){
-        return view('ejercicios.create');
-    }
-
+    // Función para almacenar el usuario creado
     public function store(){
 
         $data = request()->validate([ //validate devuelve los campos que se le incluyan --aunque no tengan ninguna regla--
@@ -210,51 +93,12 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-
-
-    public function storeEjercicios(){
-
-      $data = request()->validate([ //validate devuelve los campos que se le incluyan --aunque no tengan ninguna regla--
-            'tipo' => 'required',
-            'ejercicio1' => 'required',
-            'ejercicio2' => 'nullable',
-            'ejercicio3' => 'nullable',
-           'ejercicio4' => 'nullable',
-            'ejercicio5' => 'nullable',
-            'ejercicio6' => 'nullable',
-            'ejercicio7' => 'nullable',
-            'ejercicio8' => 'nullable'
-        ], [
-            'tipo.required' => 'El campo tipo es obligatorio'
-        ]);
-
-        Ejercicio::create([
-            'tipo' => $data['tipo'], //name tiene que coincidir con el name del label de createEj.blade.php
-            'ejercicio1' => $data['ejercicio1'],
-            'ejercicio2' => $data['ejercicio2'],
-            'ejercicio3' => $data['ejercicio3'],
-            'ejercicio4' => $data['ejercicio4'],
-            'ejercicio5' => $data['ejercicio5'],
-            'ejercicio6' => $data['ejercicio6'],
-            'ejercicio7' => $data['ejercicio7'],
-            'ejercicio8' => $data['ejercicio8'],
-        ]);
-
-        return redirect()->route('ejercicios.index');
-    }
-
+    // Función para la vista de edición del usuario que pasa por parámetros el usuario elegido en la tabla de usuarios
     public function edit(User $user){
         return view('users.edit', ['user' => $user]);
     }
 
-    public function editEjercicios(Ejercicio $ejercicio){
-        return view('ejercicios.edit', ['ejercicio' => $ejercicio]);
-    }
-
-    public function editEntrenador(User $user){
-        return view('trainer.edit', ['user' => $user]);
-    }
-
+    // Función para actualizar en la base de datos el usuario previamente modificado
     public function update(User $user){
 
         $data = request()->validate([
@@ -274,50 +118,7 @@ class UserController extends Controller
         return redirect()->route('users.show', ['user' => $user]);
     }
 
-    public function updateEjercicios(Ejercicio $ejercicio){
-
-        $data = request()->validate([
-            'tipo' => 'required',
-            'ejercicio1' => 'required',
-            'ejercicio2' => 'nullable',
-            'ejercicio3' => 'nullable',
-            'ejercicio4' => 'nullable',
-            'ejercicio5' => 'nullable',
-            'ejercicio6' => 'nullable',
-            'ejercicio7' => 'nullable',
-            'ejercicio8' => 'nullable',
-        ]);
-
-        $ejercicio->update($data);
-
-        return redirect()->route('ejercicios.show', ['ejercicio' => $ejercicio]);
-    }
-
-    public function asignarAlumnos(Request $request){
-
-        $id_u = $request->input('users_name');
-        $id_ej = $request->input('ejercicios_tipo');
-
-        DB::table('users')
-            ->where('id',$id_u)
-            ->update([ 'ejercicios_id' => $id_ej]);
-
-        return redirect()->route('trainer.alumnos');
-    }
-
-    public function showAlumnos()
-    {
-        $users = User::all();
-        $ejercicios = Ejercicio::all();
-
-        return view('trainer.alumnos', compact('users', 'ejercicios'));
-    }
-
-    public function editAlumno(){
-        $user = User::all();
-        return view('trainer.alumnos', ['user' => $user]);
-    }
-
+    // Función para borrar un usuario
     public function destroy(User $user){
 
         $user->delete();
@@ -325,20 +126,7 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function destroyEntrenador(User $user){
-
-        $user->delete();
-
-        return redirect()->route('trainer.index');
-    }
-
-    public function destroyEjercicios(Ejercicio $ejercicio){
-
-        $ejercicio->delete();
-
-        return redirect()->route('ejercicios.index');
-    }
-
+    // Función para la vista de administración de usuarios
     public function admin(User $user){
 
         $user = DB::table('users')->where('is_admin', '1');
@@ -346,19 +134,35 @@ class UserController extends Controller
         return view('admin.home');
     }
 
+    // Función de la vista contacto
     public function contacto(){
 
         return view('contacto');
 
     }
 
+    // Función de la vista normasCovid
     public function normasCovid(){
 
         return view('normasCovid');
 
     }
 
+    // Función de la vista normasCovid
+    public function precios(){
 
+        return view('precios');
 
+    }
 
+    // Función para descargar el horario en formato jpg
+    public function download(){
+        $file= public_path(). "/img/HorarioSafagym.jpg";
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return response()->download($file, 'HorarioSafagym.jpg', $headers);
+    }
 }

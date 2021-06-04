@@ -3,18 +3,18 @@
 @section('title', "Usuario {$user->id}")
 
 @section('content')
-    <div class="navbar-brand d-none d-lg-inline-block" id="centro">
-        <h4 class="card-header">Usuario: {{ $user->id }}</h4>
-        <div class="card-body">
-            <h4>Bienvenido {{ auth()->user()->name }} </h4>
-            <p>Nombre del usuario: {{ auth()->user()->name }}</p>
-            <p>Correo electrónico: {{ auth()->user()->email }}</p>
+    <div class="card">
+        <h4 class="card bg-info text-white" align="center">DATOS DEL USUARIO {{ $user->id }}</h4>
+        <div class="card-body bg-light">
+            <h3 class="card bg-info text-white">Bienvenido {{ auth()->user()->name }} </h3>
+            <p class="card bg-secondary text-white">Correo electrónico:</p><p class="card bg-light text-info"><b> {{ auth()->user()->email }}</b></p>
             @if( auth()->user()->clases_id == null)
-                <p>Clase reservada para hoy: No tienes aún clase reservada</p>
+                <p class="card bg-secondary text-white">Clase reservada: No tienes aún clase reservada</p>
             @else
-                <p>Clase reservada para hoy: {{ $clase->dia }} - {{ $clase->nombre }} - {{ $clase->horario }}</p>
+                <p class="card bg-secondary text-white">Clase reservada:</p> <p class="card bg-light text-info"><b>{{ $clase->dia }} - {{ $clase->nombre }} - {{ $clase->horario }}</b></p>
             @endif
+            <a class="btn btn-secondary text-white" href="{{ route('users.tablaEj') }}" ><b>Ver tabla ejercicios</b></a>
         </div>
-        <a class="btn btn-primary" href="{{ route('users.tablaEj') }}" >Ver tabla ejercicios</a>
+
     </div>
 @endsection
